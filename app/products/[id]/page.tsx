@@ -1,14 +1,22 @@
+export const dynamic = 'force-dynamic'; // ensures this page is rendered on the server at runtime
+
 import { fetchProduct } from '@/lib/api';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
 import { AiFillStar } from 'react-icons/ai';
+import { notFound } from 'next/navigation';
 
 interface Props {
   params: { id: string };
 }
+
 export default async function ProductPage({ params }: Props) {
   const product = await fetchProduct(params.id);
+
+  if (!product) {
+    notFound(); // triggers Next.js 404 page
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background-50 via-white to-success-100 py-12 px-4 sm:px-6 lg:px-8">
@@ -24,7 +32,6 @@ export default async function ProductPage({ params }: Props) {
         </Link>
 
         <div className="grid lg:grid-cols-2 gap-12 items-start">
-          {/*Image */}
           <div className="relative rounded-3xl overflow-hidden shadow-2xl bg-white/70 backdrop-blur-sm p-6 border border-primary-200/50">
             <Image
               src={product.image}
@@ -36,7 +43,6 @@ export default async function ProductPage({ params }: Props) {
             />
           </div>
 
-          {/*Details */}
           <div className="space-y-8 lg:sticky lg:top-20">
             <div>
               <h1 className="text-4xl lg:text-5xl font-black text-primary-700 mb-6 leading-tight">
