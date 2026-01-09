@@ -1,6 +1,3 @@
-export const dynamic = 'force-dynamic';
-export const runtime = 'nodejs';
-
 import { fetchProduct } from '@/lib/api';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -8,12 +5,10 @@ import { Button } from '@/components/ui/Button';
 import { AiFillStar } from 'react-icons/ai';
 
 interface Props {
-  params: Promise<{ id: string }>;
+  params: { id: string };
 }
-
 export default async function ProductPage({ params }: Props) {
-  const { id } = await params;
-  const product = await fetchProduct(id);
+  const product = await fetchProduct(params.id);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-background-50 via-white to-success-100 py-12 px-4 sm:px-6 lg:px-8">
