@@ -1,4 +1,5 @@
 export const dynamic = 'force-dynamic'; // ensures this page is rendered on the server at runtime
+export const dynamicParams = true;
 
 import { fetchProduct } from '@/lib/api';
 import Image from 'next/image';
@@ -15,7 +16,7 @@ export default async function ProductPage({ params }: Props) {
   const product = await fetchProduct(params.id);
 
   if (!product) {
-    notFound(); // triggers Next.js 404 page
+    notFound(); 
   }
 
   return (
