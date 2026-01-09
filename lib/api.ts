@@ -1,4 +1,5 @@
 import { Product } from '@/types';
+import { notFound } from 'next/navigation';
 
 export async function fetchProducts(): Promise<Product[]> {
   try {
@@ -15,15 +16,15 @@ export async function fetchProducts(): Promise<Product[]> {
 }
 
 export async function fetchProduct(id: string): Promise<Product> {
-  try {
-    const response = await fetch(`https://fakestoreapi.com/products/${id}`, {
-      next: { revalidate: 3600 },
-    });
-    
-    if (!response.ok) throw new Error('Product not found');
-    return response.json();
-  } catch (error) {
-    console.error('Product fetch error:', error);
-    throw error;
+  const response = await fetch(`https://fakestoreapi.com/products/${id}`, {
+    next: { revalidate: 3600 },
+    cache: 'force-cache',
+  });
+
+  if (!response.ok) {
+    notFound();
   }
+
+  return response.json();
 }
+
