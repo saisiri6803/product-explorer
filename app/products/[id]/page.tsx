@@ -1,12 +1,17 @@
-export const dynamic = 'force-dynamic'; // ensures this page is rendered on the server at runtime
+export const dynamic = 'force-dynamic'; 
 export const dynamicParams = true;
 
-import { fetchProduct } from '@/lib/api';
+import { fetchProduct, fetchProducts } from '@/lib/api';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
 import { AiFillStar } from 'react-icons/ai';
 import { notFound } from 'next/navigation';
+
+export async function generateStaticParams() {
+  const products = await fetchProducts();
+  return products.map((p) => ({ id: String(p.id) }));
+}
 
 interface Props {
   params: { id: string };
