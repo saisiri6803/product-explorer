@@ -5,6 +5,7 @@ export default function HomePage() {
   return (
     <main className="min-h-screen bg-gradient-to-br from-background via-primary-500 to-surface-dark flex flex-col items-center justify-center text-center px-4 py-12">
       <div className="max-w-4xl mx-auto">
+        {/* Hero Section */}
         <div className="mb-16">
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-black bg-gradient-to-r from-primary-600 via-primary-400 to-primary-900 bg-clip-text text-transparent mb-8 leading-tight">
             Product Explorer

@@ -1,4 +1,4 @@
-'use client';
+'use client'; // Required to use useEffect and useState
 
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
@@ -11,7 +11,7 @@ import { Skeleton } from '@/components/ui/Skeleton';
 import { Product } from '@/types';
 
 export default function ProductPage() {
-  
+  // 1. Grab the ID dynamically from the URL
   const params = useParams();
   const id = params.id as string;
 
@@ -19,7 +19,7 @@ export default function ProductPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
-  
+  // 2. Fetch data dynamically whenever the ID changes
   useEffect(() => {
     if (!id) return;
 
@@ -43,7 +43,7 @@ export default function ProductPage() {
     loadProduct();
   }, [id]);
 
-  
+  // 3. SKELETON STATE (Shows while Vercel is fetching data)
   if (loading) {
     return (
       <div className="min-h-screen bg-white py-12 px-4 sm:px-6 lg:px-8">
@@ -66,6 +66,7 @@ export default function ProductPage() {
     );
   }
 
+  // 4. ERROR/NOT FOUND STATE
   if (error || !product) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50">
@@ -78,6 +79,7 @@ export default function ProductPage() {
     );
   }
 
+  // 5. FINAL DYNAMIC UI
   return (
     <div className="min-h-screen bg-gradient-to-br from-background-50 via-white to-success-100 py-12 px-4">
       <div className="max-w-6xl mx-auto">
