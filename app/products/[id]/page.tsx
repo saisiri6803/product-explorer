@@ -8,11 +8,6 @@ import { Button } from '@/components/ui/Button';
 import { AiFillStar } from 'react-icons/ai';
 import { notFound } from 'next/navigation';
 
-export async function generateStaticParams() {
-  const products = await fetchProducts();
-  return products.map((p) => ({ id: String(p.id) }));
-}
-
 interface Props {
   params: { id: string };
 }
